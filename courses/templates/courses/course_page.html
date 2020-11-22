@@ -1,0 +1,20 @@
+{% extends 'courses/base.html' %}
+{% load course_custom_tags %}
+{%block title%}Courses
+{% endblock %}
+
+{%block content%}
+
+<style>
+    .price {
+        font-size: 20px;
+    }
+</style>
+
+<div class="container-fluid">
+    
+    <h1 class="display-1">Selected Course : {{slug}}</h1>
+
+</div>
+
+{%endblock%}
