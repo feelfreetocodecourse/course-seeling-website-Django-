@@ -89,7 +89,7 @@
                     </ol>
                     </p>
                 </div>
-            </div>  
+            </div>
         </div>
 
         <!-- learning end -->
@@ -107,14 +107,14 @@
 
 <script>
     var player;
-    window.onload = ()=>{
-        player = document.getElementById('player')
+    window.onload = () => {
+        player = document.getElementById("player")
         maintainRatio()
     }
-    function maintainRatio(){
+    function maintainRatio() {
         var w = player.clientWidth
-        var h = (w*9)/16
-        console.log({w , h});
+        var h = (w * 9) / 16
+        console.log({ w, h });
         player.height = h
     }
     window.onresize = maintainRatio
