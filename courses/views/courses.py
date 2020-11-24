@@ -5,8 +5,8 @@ from django.shortcuts import HttpResponse
 
 
 def coursePage(request , slug):
-    print(slug)
+    course = Course.objects.get(slug  = slug)
     context = {
-        "slug" : slug
+        "course" : course
     }
     return render(request , template_name="courses/course_page.html" , context=context )
