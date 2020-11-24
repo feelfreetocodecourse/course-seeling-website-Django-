@@ -109,15 +109,15 @@
     var player;
     window.onload = ()=>{
         player = document.getElementById('player')
-        mentainRatio()
+        maintainRatio()
     }
-    function mentainRatio(){
+    function maintainRatio(){
         var w = player.clientWidth
         var h = (w*9)/16
         console.log({w , h});
         player.height = h
     }
-    window.onresize = mentainRatio
+    window.onresize = maintainRatio
 </script>
 
 {%endblock%}
