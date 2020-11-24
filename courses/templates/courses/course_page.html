@@ -107,9 +107,11 @@
 
 <script>
     var player;
-    window.onload = () => {
-        player = document.getElementById("player")
-        maintainRatio()
+    document.onreadystatechange = function () {
+        if (document.readyState == 'interactive') {
+            player = document.getElementById("player")
+            maintainRatio()
+        }
     }
     function maintainRatio() {
         var w = player.clientWidth
