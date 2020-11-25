@@ -1,0 +1,1 @@
+from courses.forms.registration_form import RegistrationForm

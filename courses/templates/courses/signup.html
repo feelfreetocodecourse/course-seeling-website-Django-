@@ -8,6 +8,15 @@ Signup
 
 <div class="container">
    <h1 class="display-1">Signup Page</h1>
+
+   <div>
+      <form action="/signup" method="POST">
+         {% csrf_token %}
+         {{form.as_ul}}
+
+         <input type="submit" value="Register">
+      </form>
+   </div>
 </div>
 
 {%endblock%}
