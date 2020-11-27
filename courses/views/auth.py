@@ -1,8 +1,8 @@
 from django.shortcuts import render , redirect
 from courses.models import Course , Video
 from django.shortcuts import HttpResponse
-# Create your views here.
-from courses.forms import RegistrationForm
+from django.contrib.auth import logout
+from courses.forms import RegistrationForm , LoginForm
 from django.views import View
 
 
@@ -22,8 +22,28 @@ class SignupView(View):
         return render(request , 
             template_name="courses/signup.html" , context= { 'form' : form } )
     
-    
 
-def login(request ):
-    return  render(request , 
-    template_name="courses/login.html" )    
+class LoginView(View):
+    def get(self , request):
+        form = LoginForm()
+        context = {
+            "form" : form
+        }
+        return  render(request , 
+            template_name="courses/login.html" , context=context )  
+
+    def post(self , request):
+        form = LoginForm(request = request , data=request.POST)
+        context = {
+            "form" : form
+        }
+        if(form.is_valid()):
+            return redirect("home")
+        return  render(request , 
+            template_name="courses/login.html" , context=context )  
+
+
+
+def signout(request ):
+    logout(request)
+    return redirect("home")
