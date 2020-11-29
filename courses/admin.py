@@ -1,5 +1,5 @@
 from django.contrib import admin
-from courses.models import Course , Tag , Prerequisite , Learning , Video
+from courses.models import Course , Payment , UserCourse , Tag , Prerequisite , Learning , Video
 
 # Register your models here.
 
@@ -21,3 +21,5 @@ class CourseAdmin(admin.ModelAdmin):
 
 admin.site.register(Course , CourseAdmin)
 admin.site.register(Video)
+admin.site.register(Payment)
+admin.site.register(UserCourse)
