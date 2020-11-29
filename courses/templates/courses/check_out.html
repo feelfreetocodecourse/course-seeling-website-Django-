@@ -1,0 +1,25 @@
+{% extends 'courses/base.html' %}
+{% load course_custom_tags %}
+{%block title%}
+Signup
+{% endblock %}
+
+{%block content%}
+
+<div class="container">
+   <h1 class="display-4 alert border text-center">Checkout Page</h1>
+   <hr>
+
+   <h1>you are going to enroll {{course.name}}</h1>
+    <hr>
+   <div>
+      <form method="post" action="/login">
+         {% csrf_token %}
+        
+
+         <input type="submit" value="Checkout">
+      </form>
+   </div>
+</div>
+
+{%endblock%}
