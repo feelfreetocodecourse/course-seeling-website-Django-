@@ -110,3 +110,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR
+
+KEY_ID  = "rzp_test_qbTFkL74elUW0T"
+KEY_SECRET  = "hcYlarvVM4LVPQ2EWVElxNzW"
