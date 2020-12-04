@@ -7,18 +7,39 @@ Signup
 {%block content%}
 
 <div class="container">
-   <h1 class="display-4 alert border text-center">Checkout Page</h1>
-   <hr>
+   <br>  
+   <br>  
+   <div class="row ">
+      <div class="col mr-auto ">
+         <div class="card ml-auto" style="width: 18rem;">
+             <img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap">
+             <div class="card-body">
+                 <h5 class="card-title">{{course.name}}</h5>
+                 <p class="card-text m-0 p-0">
+                     Save {{course.discount}}%
+                     <br>
+                     <span class="price">
+                         <del>{{course.price|rupee}}</del>
+                     &nbsp;
+                    
+                     <span>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
+                     </span>
 
-   <h1>you are going to enroll {{course.name}}</h1>
-    <hr>
-   <div>
-      <form method="post" action="/login">
-         {% csrf_token %}
-        
+                 </p>
+             </div>
 
-         <input type="submit" value="Checkout">
-      </form>
+         </div>
+     </div>
+
+
+     <div class="col ">
+         <div>
+            <p class="display-5">{{course.name}}</p>
+            <hr>
+            <p class="display-5">Payable Amount : <b>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</b></p>
+            <a class="btn btn-light border" href="#">Continue to Payment</a>
+         </div>
+     </div>
    </div>
 </div>
 
