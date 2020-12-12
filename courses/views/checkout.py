@@ -3,7 +3,7 @@ from courses.models import Course , Video
 from django.shortcuts import HttpResponse
 # Create your views here.
 from codewithvirendra.settings import *
-
+from time import time
 import razorpay
 client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
 
@@ -22,7 +22,15 @@ def checkout(request , slug):
         notes = {
             "email" : user.email, 
             "name" : f'{user.first_name} {user.last_name}'
-        }  
+        }
+        reciept = f"codewithvirendra-{int(time())}"
+        order = client.order.create(
+            {'receipt' :reciept , 
+            'notes' : notes , 
+            'amount' : amount ,
+            'currency' : currency
+            }
+         )  
 
     context = {
         "course" : course , 
@@ -30,3 +38,7 @@ def checkout(request , slug):
     }
     return  render(request , template_name="courses/check_out.html" , context=context )    
     
+
+
+
+ 
