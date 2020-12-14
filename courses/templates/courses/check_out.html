@@ -7,45 +7,73 @@ Signup
 {%block content%}
 
 <div class="container">
-   <br> 
-    
-   {% if order is not None %}
-   <h1 class="">{{order}}</h1>
-    {% endif %}
-   <br>  
-   <div class="row ">
-      <div class="col mr-auto ">
-         <div class="card ml-auto" style="width: 18rem;">
-             <img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap">
-             <div class="card-body">
-                 <h5 class="card-title">{{course.name}}</h5>
-                 <p class="card-text m-0 p-0">
-                     Save {{course.discount}}%
-                     <br>
-                     <span class="price">
-                         <del>{{course.price|rupee}}</del>
-                     &nbsp;
-                    
-                     <span>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
-                     </span>
+    <br>
 
-                 </p>
-             </div>
+   
+    <br>
+    <div class="row ">
+        <div class="col mr-auto ">
+            <div class="card ml-auto" style="width: 18rem;">
+                <img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{course.name}}</h5>
+                    <p class="card-text m-0 p-0">
+                        Save {{course.discount}}%
+                        <br>
+                        <span class="price">
+                            <del>{{course.price|rupee}}</del>
+                            &nbsp;
 
-         </div>
-     </div>
+                            <span>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
+                        </span>
+
+                    </p>
+                </div>
+
+            </div>
+        </div>
 
 
 
-     <div class="col ">
-         <div>
-            <p class="display-5">{{course.name}}</p>
-            <hr>
-            <p class="display-5">Payable Amount : <b>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</b></p>
-            <a class="btn btn-light border" href="?action=create_payment">Continue to Payment</a>
-         </div>
-     </div>
-   </div>
+        <div class="col ">
+            <div>
+                <p class="display-5">{{course.name}}</p>
+                <hr>
+                <p class="display-5">Payable Amount : <b>{% cal_sellprice course.price course.discount as value %}
+                        {{value|rupee}}</b></p>
+                <a class="btn btn-light border" href="?action=create_payment">Continue to Payment</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+{% if order is not None %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+
+    var options = {
+        "key": "rzp_test_qbTFkL74elUW0T", // Enter the Key ID generated from the Dashboard
+        "name": "Code With Virendra",
+        "description": "Payment For {{course.name}}",
+        "image": "https://png.pngtree.com/element_pic/00/16/07/115783931601b5c.jpg",
+        "order_id": "{{order.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://localhost:8000/verify_payment",
+        "prefill": {
+            "name": "{{user.first_name}}",
+            "email": "{{user.email}}",
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+
+    rzp1.open();
+
+</script>
+{% endif %}
+
 
 {%endblock%}

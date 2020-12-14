@@ -1,7 +1,9 @@
 from django.shortcuts import render , redirect
-from courses.models import Course , Video
+from courses.models import Course , Video , Payment
 from django.shortcuts import HttpResponse
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
 from codewithvirendra.settings import *
 from time import time
 import razorpay
@@ -16,6 +18,7 @@ def checkout(request , slug):
     user = request.user
     action = request.GET.get('action')
     order = None
+    payment = None
     if action == 'create_payment':
         amount =  int((course.price - ( course.price * course.discount * 0.01 )) * 100)
         currency = "INR"
@@ -30,15 +33,34 @@ def checkout(request , slug):
             'amount' : amount ,
             'currency' : currency
             }
-         )  
+        )
+
+        payment = Payment()
+        payment.user  = user
+        payment.course = course
+        payment.order_id = order.get('id')
+        payment.save()
 
     context = {
         "course" : course , 
-        "order" : order
+        "order" : order, 
+        "payment" : payment, 
+        "user" : user
     }
     return  render(request , template_name="courses/check_out.html" , context=context )    
-    
 
 
+@csrf_exempt
+def verifyPayment(request):
+    if request.method == "POST":
+        data = request.POST
+        context = {}
+        try:
+            client.utility.verify_payment_signature(data)
+            return render(request , template_name="courses/my_courses.html" , context=context )    
 
+        except:
+            return HttpResponse("Invalid Payment Details")
+        
+        
  
