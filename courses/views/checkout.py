@@ -57,7 +57,7 @@ def verifyPayment(request):
         context = {}
         try:
             client.utility.verify_payment_signature(data)
-            return render(request , template_name="courses/my_courses.html" , context=context )    
+            return render(request , template_name="courses/my_courses.html" , context=context)    
 
         except:
             return HttpResponse("Invalid Payment Details")
