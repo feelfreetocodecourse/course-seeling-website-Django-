@@ -14,17 +14,6 @@ class MyCoursesList(ListView):
     def get_queryset(self):
         return UserCourse.objects.filter(user = self.request.user)
 
-''''
-@login_required(login_url="login")
-def my_courses(request):
-    user = request.user
-    user_courses = UserCourse.objects.filter(user = user)
-    context = {
-        'user_courses' : user_courses
-    }
-    return render(request=request , template_name="courses/my_courses.html" , context=context )
-'''
-
 
 def coursePage(request , slug):
     course = Course.objects.get(slug  = slug)
