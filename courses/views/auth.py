@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from courses.models import Course , Video
 from django.shortcuts import HttpResponse
-from django.contrib.auth import logout
+from django.contrib.auth import logout , login
 from courses.forms import RegistrationForm , LoginForm
 from django.views import View
 from django.views.generic.edit import FormView
@@ -15,6 +15,17 @@ class SignupView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+    
+
+class LoginView(FormView):
+    template_name="courses/login.html" 
+    form_class = LoginForm
+    success_url  = '/'
+
+    def form_valid(self, form):
+        login(self.request , form.cleaned_data)
+        return super().form_valid(form)
+
 
 '''
 class SignupView(View):
@@ -34,6 +45,7 @@ class SignupView(View):
             template_name="courses/signup.html" , context= { 'form' : form } )
 '''   
 
+'''
 class LoginView(View):
     def get(self , request):
         form = LoginForm()
@@ -52,7 +64,7 @@ class LoginView(View):
             return redirect("home")
         return  render(request , 
             template_name="courses/login.html" , context=context )  
-
+'''
 
 
 def signout(request ):
