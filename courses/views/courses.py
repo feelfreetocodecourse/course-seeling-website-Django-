@@ -2,6 +2,19 @@ from django.shortcuts import render , redirect
 from courses.models import Course , Video , UserCourse
 from django.shortcuts import HttpResponse
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+
+
+@login_required(login_url="login")
+def my_courses(request):
+    user = request.user
+    user_courses = UserCourse.objects.filter(user = user)
+    context = {
+        'user_courses' : user_courses
+    }
+    return render(request=request , template_name="courses/my_courses.html" , context=context )
+
+
 
 def coursePage(request , slug):
     course = Course.objects.get(slug  = slug)

@@ -1,12 +1,13 @@
 
 from django.contrib import admin
 from django.urls import path , include
-from courses.views import home ,verifyPayment ,  coursePage , SignupView , LoginView , signout , checkout
+from courses.views import  my_courses,  home ,verifyPayment ,  coursePage , SignupView , LoginView , signout , checkout
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     path('', home , name = 'home'),
     path('logout', signout , name = 'logout'),
+    path('my-courses', my_courses , name = 'my-courses'),
     path('signup', SignupView.as_view() , name = 'signup'),
     path('login', LoginView.as_view() , name = 'login'),
     path('course/<str:slug>', coursePage , name = 'coursepage'),

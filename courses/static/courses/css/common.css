@@ -6,6 +6,10 @@
     font-size: 35px;
 }
 
+.display-6{
+    font-size: 30px;
+    font-weight: 300;
+}
 
 .overflow-y-scroll{
     overflow-y: scroll;
