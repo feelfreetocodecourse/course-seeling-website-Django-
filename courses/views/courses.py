@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from courses.models import Course , Video
+from courses.models import Course , Video , UserCourse
 from django.shortcuts import HttpResponse
 # Create your views here.
 
@@ -13,10 +13,18 @@ def coursePage(request , slug):
 
     video = Video.objects.get(serial_number = serial_number , course = course)
 
-    if((request.user.is_authenticated is False) and (video.is_preview is False)):
-        return redirect("login")
-        # i you are enrooled in this course you can watch every video
+    if (video.is_preview is False):
 
+        if request.user.is_authenticated is False:
+            return redirect("login")
+        else:
+            user = request.user
+            try:
+                user_course = UserCourse.objects.get(user = user  , course = course)
+            except:
+                return redirect("check-out" , slug=course.slug)
+        
+        
     context = {
         "course" : course , 
         "video" : video , 
