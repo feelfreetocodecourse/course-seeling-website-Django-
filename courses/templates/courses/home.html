@@ -14,7 +14,7 @@
 <div class="container">
     <br>
     <div class="row">
-        {% for course in courses  %}
+        {% for course in courses %}
         <div class="col mx-auto">
             <div class="card mx-auto" style="width: 18rem;">
                 <img class="card-img-top" src="{{course.thumbnail.url}}" alt="Card image cap">
@@ -25,22 +25,33 @@
                         <br>
                         <span class="price">
                             <del>{{course.price|rupee}}</del>
-                        &nbsp;
-                       
-                        <span>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
+                            &nbsp;
+
+                            <span>{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
                         </span>
 
                     </p>
                 </div>
 
                 <div class="card-footer p-0">
+                    {% is_enrolled request course as enrolled %}
+
+
                     <div class="row no-gutters">
+                        {% if enrolled %}
                         <div class="col border-right">
-                            <a href="/check-out/{{course.slug}}" class="btn btn-light btn-block">Enroll Now</a></div>
+                            <a href="/" class="btn btn-light btn-block">Start Course</a>
+                        </div>
+                        {% else %}
+                        <div class="col border-right">
+                            <a href="/check-out/{{course.slug}}" class="btn btn-light btn-block">Enroll Now</a>
+                        </div>
                         <div class="col">
                             <a href="/course/{{course.slug}}" class="btn btn-light  btn-block">Show More</a>
                         </div>
+                        {% endif %}
                     </div>
+
                 </div>
             </div>
         </div>

@@ -75,5 +75,15 @@ Signup
 </script>
 {% endif %}
 
+{% if error is not None %}
 
+<script>
+
+    window.onload = ()=>{
+        alert("{{error}}")
+    }
+
+</script>
+
+{% endif %}
 {%endblock%}
