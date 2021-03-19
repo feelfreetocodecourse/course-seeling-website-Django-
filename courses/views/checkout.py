@@ -19,16 +19,23 @@ def checkout(request , slug):
     order = None
     payment = None
     error = None
+    try:
+        user_course = UserCourse.objects.get(user = user  , course = course)
+        error = "You are Already Enrolled in this Course"
+    except:
+        pass
+    amount=None
+    if error is None : 
+        amount =  int((course.price - ( course.price * course.discount * 0.01 )) * 100)
+   # if ammount is zero dont create paymenty , only save emrollment obbect 
+    
+    if amount==0:
+        userCourse = UserCourse(user = user , course = course)
+        userCourse.save()
+        return redirect('my-courses')   
+                # enroll direct
     if action == 'create_payment':
 
-        try:
-           user_course = UserCourse.objects.get(user = user  , course = course)
-           error = "You are Already Enrolled in this Course"
-        except:
-            pass
-        
-        if error is None : 
-            amount =  int((course.price - ( course.price * course.discount * 0.01 )) * 100)
             currency = "INR"
             notes = {
                 "email" : user.email, 
@@ -49,6 +56,8 @@ def checkout(request , slug):
             payment.order_id = order.get('id')
             payment.save()
 
+
+    
     context = {
         "course" : course , 
         "order" : order, 
